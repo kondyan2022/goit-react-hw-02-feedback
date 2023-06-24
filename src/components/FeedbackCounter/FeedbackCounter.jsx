@@ -12,17 +12,19 @@ class FeedbackCounter extends Component {
     const {
       target: { textContent },
     } = evt;
-    switch (textContent) {
-      case 'good':
-        this.setState(prevState => ({ good: prevState.good + 1 }));
-        return;
-      case 'neutral':
-        this.setState(prevState => ({ neutral: prevState.neutral + 1 }));
-        return;
-      default:
-        this.setState(prevState => ({ bad: prevState.bad + 1 }));
-        return;
-    }
+    this.setState(prevState => ({ [textContent]: prevState[textContent] + 1 }));
+
+    // switch (textContent) {
+    //   case 'good':
+    //     this.setState(prevState => ({ good: prevState.good + 1 }));
+    //     return;
+    //   case 'neutral':
+    //     this.setState(prevState => ({ neutral: prevState.neutral + 1 }));
+    //     return;
+    //   default:
+    //     this.setState(prevState => ({ bad: prevState.bad + 1 }));
+    //     return;
+    // }
   };
   countTotalFeedback() {
     return Object.values(this.state).reduce((acc, a) => acc + a, 0);
