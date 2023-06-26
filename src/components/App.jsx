@@ -1,5 +1,4 @@
 import { Component } from 'react';
-import FeedbackCounter from './FeedbackCounter/FeedbackCounter';
 import Notification from './Notification/Notification';
 import Statistic from './Statistic/Statistic';
 import FeedbackOptions from './FeedbackOptions/FeedbackOptions';
@@ -20,7 +19,7 @@ export class App extends Component {
     }));
   };
   countTotalFeedback() {
-    return Object.values(this.state).reduce((acc, a) => acc + a, 0);
+    return Object.values(this.state).reduce((acc, number) => acc + number, 0);
   }
   countPositiveFeedbackPercentage() {
     return Math.round(
@@ -31,9 +30,6 @@ export class App extends Component {
   render() {
     return (
       <>
-        <Notification message="Before refactoring" />
-        <FeedbackCounter />
-        <Notification message="After refactoring" />
         <Section title="Please leave feedback">
           <FeedbackOptions
             options={Object.keys(this.state)}
@@ -43,7 +39,9 @@ export class App extends Component {
         {this.countTotalFeedback() ? (
           <Section title="Statistic">
             <Statistic
-              {...this.state}
+              good={this.state.good}
+              neutral={this.state.neutral}
+              bad={this.state.bad}
               total={this.countTotalFeedback()}
               positivePercentage={this.countPositiveFeedbackPercentage()}
             />
